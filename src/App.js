@@ -6,7 +6,7 @@ import Notifications from './components/Notifications/Notifications';
 
 export default function App () {
   const [good, setGood] = useState(0);
-  const [neutral, setNetural] = useState(0);
+  const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
   const onLeaveFeedback = event => {
@@ -15,13 +15,16 @@ export default function App () {
         setGood(state=> state + 1);
         break;
 
-        case 'netural':
-        setNetural(state=> state + 1);
+        case 'neutral':
+        setNeutral(state => state + 1);
         break;
 
         case 'bad':
         setBad(state=> state + 1);
         break;
+
+        default:
+        return;
     }
   };
 
@@ -30,11 +33,9 @@ const countTotalFeedback = () => {
 };
 
 const countPositiveFeedbackPercentage = () => {
-  if (countTotalFeedback() === 0){
-    return 0;
-  }
-  const positivePercentage = Math.round((good/countTotalFeedback())*100);
-  return positivePercentage;
+  const total = countTotalFeedback();
+
+  return Math.round((good * 100) / total);
 };
 
 return (
